@@ -9,3 +9,9 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 # Version change observations
 
 `__layout.svelte` is now `+layout.svelte`.
+
+# Todos
+
+-   [] Add local storage or database with authentication.
+-   [] Investigate (and ideally fix) Typescript errors in Svelte and JS files.
+-   [] Study TailwindCSS basics and how to organize messy classes.
