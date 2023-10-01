@@ -4,9 +4,8 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 
 # Tweaks
 
-- Using `pnpm` instead of `npm`.
+-   Using `pnpm` instead of `npm`.
 
 # Version change observations
 
 `__layout.svelte` is now `+layout.svelte`.
-
