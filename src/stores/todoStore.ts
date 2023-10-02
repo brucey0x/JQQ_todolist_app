@@ -1,23 +1,38 @@
 import { writable } from 'svelte/store'
+import { supabase } from '../supabaseClient'
 
 export const todos = writable<Todo[]>([])
 
-export const addTodo = (text: string) => {
+export const loadTodos = async () => {
+	const { data, error } = await supabase.from('todos').select()
+
+	if (error) console.error(error)
+	todos.set(data as Todo[])
+}
+
+export const addTodo = async (text: string, user_id: string) => {
+	const { data, error } = await supabase.from('todos').insert([{ text, user_id }])
+
+	if (error) console.error(error)
+
 	if (text) {
-		todos.update((currentValue) => {
-			// Spreading current todos, adding new ones, returning updated todos.
-			const newTodos = [...currentValue, { text, completed: false, id: Date.now() }]
-			return newTodos
-		})
+		// Update todos to include new todo that's been added to Supabase
+		todos.update((currentValue) => [...currentValue, data[0]])
 	}
 }
 
-export const deleteTodo = (id: number) => {
+export const deleteTodo = async (id: number) => {
+	const { error } = await supabase.from('todos').delete().match({ id })
+
+	if (error) console.error(error)
 	// Filter todos array to retain the IDs which aren't being deleted.
 	todos.update((todos) => todos.filter((todo) => todo.id !== id))
 }
 
-export const toggleTodoCompleted = (id: number) => {
+export const toggleTodoCompleted = async (id: number, completed: boolean) => {
+	const { error } = await supabase.from('todos').update({ completed: !completed }).match({ id })
+
+	if (error) console.error(error)
 	todos.update((currentTodos: Todo[]) =>
 		currentTodos.map((todo: Todo) =>
 			todo.id === id ? { ...todo, completed: !todo.completed } : todo
