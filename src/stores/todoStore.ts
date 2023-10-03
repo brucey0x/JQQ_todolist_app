@@ -10,6 +10,7 @@ export const loadTodos = async () => {
 
 	if (error) console.error(error)
 	todos.set(data as Todo[])
+	return data // Is this necessary?
 }
 
 export const addTodo = async (text: string, user_id: string) => {
