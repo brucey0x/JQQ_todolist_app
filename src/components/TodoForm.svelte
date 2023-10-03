@@ -4,7 +4,7 @@
 
     const handleSubmit = () => {
         if(todo){
-            addTodo(todo)
+            addTodo(todo, "")
             todo = ""
             console.log("submitting");
         }

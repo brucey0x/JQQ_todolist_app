@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
 	import { deleteTodo, toggleTodoCompleted } from "../stores/todoStore"
-
-    export let todo
+    
+    export let todo: Todo
 </script>
 
 <li class="bg-white flex items-center shadow-sm border border-gray-200 rounded-lg my-2 py-2 px-4">
