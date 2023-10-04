@@ -6,7 +6,6 @@
         if(todo){
             addTodo(todo)
             todo = ""
-            console.log("submitting");
         }
     }
 </script>
