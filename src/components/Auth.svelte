@@ -21,9 +21,9 @@
     }
 </script>
 
-<h1 class="text-2xl font-bold text-center text-gray-800 md:text-3xl">
+<h2 class="text-2xl font-bold text-center text-gray-800 md:text-3xl">
     Log in
-</h1>
+</h2>
 <p class="text-center mt-2">Sign in with magic link via your email</p>
 
 <form on:submit|preventDefault={handleLogin}>

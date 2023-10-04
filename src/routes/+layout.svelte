@@ -33,6 +33,7 @@
 </script>
 
 <div class="container mx-auto my-6 max-w-lg">
+    <h1 class="text-2xl font-bold text-center text-gray-800 md:text-3xl">Todo List</h1>
     {#if $user}
         <Navbar/>
         <slot>
