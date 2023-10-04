@@ -5,18 +5,20 @@ import { supabase } from "../supabaseClient"
 export const todos = writable<Todo[]>([])
 
 export const loadTodos = async () => {
-	const { data, error } = await supabase.from("todos").select()
+	const { data, error } = await supabase.from("todos").select("*")
 
 	console.log("supabase todos are is: ", data)
 	console.log("supabase error is: ", error)
 
 	if (error) return console.error(error)
 	todos.set(data as Todo[])
-	return data // Is this necessary?
 }
 
 export const addTodo = async (text: string, user_id: string = uuidv4()) => {
-	const { data, error } = await supabase.from("todos").insert([{ text, user_id }]).select("*")
+	const { data, error } = await supabase
+		.from("todos")
+		.insert([{ text, completed: false, user_id }])
+		.select("*")
 
 	console.log("supabase added todo is: ", data)
 
@@ -37,8 +39,11 @@ export const deleteTodo = async (id: number) => {
 	todos.update((todos) => todos.filter((todo) => todo.id !== id))
 }
 
-export const toggleTodoCompleted = async (id: number, completed: boolean) => {
-	const { error } = await supabase.from("todos").update({ completed: !completed }).match({ id })
+export const toggleTodoCompleted = async (id: number, currentState: boolean) => {
+	const { error } = await supabase
+		.from("todos")
+		.update({ completed: !currentState })
+		.match({ id })
 
 	if (error) return console.error(error)
 
