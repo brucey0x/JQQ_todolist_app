@@ -14,5 +14,5 @@
 </script>
 
 <div class="my-4 flex justify-end">
-    <button on:click={logout} class="shadow-sm rounded bg-blue-500 hover:bg-blue-600 text-white py-2 px-4">Log out</button>
+    <button on:click={logout} class="shadow rounded bg-red-500 hover:bg-red-600 text-white py-2 px-4">Log out</button>
 </div>

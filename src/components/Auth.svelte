@@ -41,14 +41,11 @@
     }
 </script>
 
-<h2 class="text-2xl font-bold text-center text-gray-800 md:text-3xl">
-    Log in
-</h2>
-<p class="text-center mt-2">Sign in with magic link via your email</p>
+<p class="text-center text-lg mt-4 mb-2">Insert email to login via magic link ✨</p>
 
 <form on:submit|preventDefault={handleLogin}>
     <div class="flex flex-col text-sm mb-2">
-        <label for="email" class="font-bold mb-2 text-gray-800">Email</label>
+        <label for="email" class="font-bold mb-2 text-gray-800"></label>
         <input type="email" placeholder="Your email" name="email" class="appearance-none shadow-sm border border-gray-200 p-2 focus:outline-none focus:border-gray-500 rounded-lg" bind:value={userEmail}>
     </div>
     <button

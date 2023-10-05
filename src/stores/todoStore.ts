@@ -1,5 +1,4 @@
 import { writable } from "svelte/store"
-import { v4 as uuidv4 } from "uuid"
 import { supabase } from "../supabaseClient"
 
 export const todos = writable<Todo[]>([])
@@ -14,7 +13,7 @@ export const loadTodos = async () => {
 	todos.set(data as Todo[])
 }
 
-export const addTodo = async (text: string, user_id: string = uuidv4()) => {
+export const addTodo = async (text: string, user_id: string) => {
 	const { data, error } = await supabase
 		.from("todos")
 		.insert([{ text, completed: false, user_id }])
