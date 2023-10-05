@@ -8,7 +8,7 @@
     let url =
         import.meta.env.VITE_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
         import.meta.env.VITE_PUBLIC_VERCEL_URL ?? // Automatically set by Vercel.
-        'http://localhost:3000/'
+        'http://localhost:5173/'
     console.log(`VITE_PUBLIC_SITE_URL: ${import.meta.env.VITE_PUBLIC_SITE_URL}
     VITE_PUBLIC_VERCEL_URL: ${import.meta.env.VITE_PUBLIC_VERCEL_URL}`);
     
