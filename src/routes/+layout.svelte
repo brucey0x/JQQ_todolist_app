@@ -40,19 +40,19 @@
 
 <main>
     <body class="bg-blue-200"></body>
-    <h1 class="text-2xl font-bold text-center text-gray-800 md:text-3xl my-6">Todo List App ✅</h1>
+    <h1 class="text-2xl font-bold text-center text-gray-800 md:text-3xl md:my-12 my-6">Todo List App ✅</h1>
         {#if $user}
-            <div class="container mx-auto my-6  max-w-2xl">
-                <Navbar/>
-            </div>
-            <div class="container mx-auto my-6  max-w-lg">
-                <h2 class="text-2xl text-center my-6">What do you need to do?</h2>
+            <div class="container mx-auto my-6">
+                <div class=" max-w-md md:max-w-xl">
+                    <Navbar/>
+                </div>
+                <h2 class="text-2xl text-center">What do you need to do?</h2>
                 <slot>
                 </slot>
             </div>
             {:else}
-            <div class="container mx-auto my-6  max-w-lg">
-            <Auth/>
+            <div class="container mx-auto my-6 max-w-md md:max-w-xl">
+                <Auth/>
             </div>
         {/if}
 </main>

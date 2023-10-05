@@ -44,11 +44,10 @@
 <p class="text-center text-lg mt-4 mb-2">Insert email to login via magic link ✨</p>
 
 <form on:submit|preventDefault={handleLogin}>
-    <div class="flex flex-col text-sm mb-2">
-        <label for="email" class="font-bold mb-2 text-gray-800"></label>
+    <div class="flex flex-col mb-2 w-4/6 mx-auto">
         <input type="email" placeholder="Your email" name="email" class="appearance-none shadow-sm border border-gray-200 p-2 focus:outline-none focus:border-gray-500 rounded-lg" bind:value={userEmail}>
+        <button
+        class="w-full shadow-sm rounded bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 my-2"
+        type="submit">Log in</button>
     </div>
-    <button
-    class="w-full shadow-sm rounded bg-blue-500 hover:bg-blue-600 text-white py-2 px-4"
-    type="submit">Log in</button>
 </form>

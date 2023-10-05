@@ -5,9 +5,12 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 -   [Build an App with SvelteKit and Tailwind CSS](https://www.youtube.com/watch?v=YipaPr4Aex8&t=166s)
 -   [SvelteKit and Supabase Tutorial with Authentication - Build a SvelteKit App Part 2](https://www.youtube.com/watch?v=YqIyET7XKIQ)
 
+[Production version of site hosted on Vercel](https://jqq-todolist-app.vercel.app/)
+
 # Tweaks
 
 -   Using `pnpm` instead of `npm`.
+-   Using Typescript instead of vanilla JS
 
 # Version change observations
 
@@ -15,10 +18,21 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 
 # Todos
 
+## Features & upgrades
+
 -   [x] Add local storage or database with authentication.
 -   [x] Load the data upon each page load.
--   [] Make Supabase magic sign-in link work for the public Vercel hosted version
--   [] Investigate (and ideally fix) Typescript errors in Svelte and JS files.
--   [] Improve CSS styling.
--   [] Study TailwindCSS basics and how to organize messy classes.
--   [] Test on mobile and different browsers.
+-   [ ] Add dates to tasks
+-   [ ] Add ability to sort by date
+-   [ ] Make pages responsive (good looking on mobile too)
+-   [ ] Improve CSS styling.
+-   [ ] Study TailwindCSS basics and how to organize messy classes.
+
+## Bugs
+
+-   [ ] Make Supabase magic sign-in link work for the public Vercel hosted version
+-   [ ] Investigate (and ideally fix) Typescript errors in Svelte and JS files.
+
+## Testing
+
+-   [ ] Test on mobile and different browsers.
