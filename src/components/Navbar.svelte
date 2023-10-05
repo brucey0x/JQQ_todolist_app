@@ -13,6 +13,6 @@
     }
 </script>
 
-<div class="my-4 flex justify-end">
-    <button on:click={logout} class="shadow rounded bg-red-500 hover:bg-red-600 text-white py-2 px-4">Log out</button>
+<div class="flex justify-end px-4 my-4 ">
+    <button on:click={logout} class="shadow rounded bg-red-600 hover:bg-red-700 text-white py-2 px-4">Log out</button>
 </div>

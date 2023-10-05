@@ -25,6 +25,7 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 -   [ ] Add dates to tasks
 -   [ ] Add ability to sort by date
 -   [ ] Make pages responsive (good looking on mobile too)
+-   [ ] Auto-focus on sign-in and task input forms upon DOM load.
 -   [ ] Improve CSS styling.
 -   [ ] Study TailwindCSS basics and how to organize messy classes.
 

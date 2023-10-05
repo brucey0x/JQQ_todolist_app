@@ -2,12 +2,12 @@
     import type { Session, User } from "@supabase/supabase-js"
     import { onMount } from "svelte"
     import "../app.css"
-    import Auth from "../components/Auth.svelte"
+    import { default as Auth } from "../components/Auth.svelte"
     import Navbar from "../components/Navbar.svelte"
     import { user } from "../stores/authStore"
     import { loadTodos } from "../stores/todoStore"
     import { supabase } from "../supabaseClient"
-
+    
     onMount(async () => {
         const { data, error } = await supabase.auth.getSession()
         console.log("getSupabaseSession data is: ", data);
@@ -40,12 +40,12 @@
 
 <main>
     <body class="bg-blue-200"></body>
-    <h1 class="text-2xl font-bold text-center text-gray-800 md:text-3xl md:my-12 my-6">Todo List App ✅</h1>
+    <h1 class="text-2xl font-bold text-center text-gray-800 md:text-3xl md:mt-12 mt-6">Todo List App ✅</h1>
         {#if $user}
-            <div class="container mx-auto my-6">
-                <div class=" max-w-md md:max-w-xl">
-                    <Navbar/>
-                </div>
+            <div class="container mx-auto max-w-md md:max-w-xl">
+                <Navbar/>
+            </div>
+            <div class="container mx-auto max-w-md md:max-w-xl">
                 <h2 class="text-2xl text-center">What do you need to do?</h2>
                 <slot>
                 </slot>

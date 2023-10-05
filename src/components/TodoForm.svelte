@@ -13,7 +13,7 @@
     }
 </script>
 
-<form class="my-6" on:submit|preventDefault={handleSubmit}>
+<form class="my-4" on:submit|preventDefault={handleSubmit}>
     <div class="flex flex-col text-sm mb-2">
         <label for="todo" class="font-bold mb-2 text-gray-800"></label>
         <input type="text" bind:value={todo} name="todo" placeholder="Insert task" class="appearance-none shadow border border-gray-200 p-2 focus:outline-none focus:border-gray-500 rounded-lg" />

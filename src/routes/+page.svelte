@@ -5,9 +5,10 @@
 </script>
 
 <main>
-    
+    <div class="px-4">
     <TodoForm/>
     {#each $todos as todo}
         <Todo todo={todo} index={todo.id}/>
     {/each}
+    </div>
 </main>

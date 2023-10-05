@@ -1,8 +1,12 @@
 <script lang="ts">
+	import { onMount } from "svelte"
 	import { supabase } from "../supabaseClient"
-
+    
     let load = "false"
     let userEmail: string
+    let emailInput: HTMLInputElement
+
+    onMount(() => emailInput.focus())
 
     const getURL = () => {
     let url =
@@ -41,11 +45,11 @@
     }
 </script>
 
-<p class="text-center text-lg mt-4 mb-2">Insert email to login via magic link ✨</p>
+<p class="text-center text-base md:text-lg mt-4 mb-2">Insert email to login via magic link ✨</p>
 
 <form on:submit|preventDefault={handleLogin}>
     <div class="flex flex-col mb-2 w-4/6 mx-auto">
-        <input type="email" placeholder="Your email" name="email" class="appearance-none shadow-sm border border-gray-200 p-2 focus:outline-none focus:border-gray-500 rounded-lg" bind:value={userEmail}>
+        <input type="email" placeholder="Your email" name="email" class="appearance-none shadow-sm border border-gray-200 p-2 focus:outline-none focus:border-gray-500 rounded-lg" bind:value={userEmail} bind:this={emailInput}>
         <button
         class="w-full shadow-sm rounded bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 my-2"
         type="submit">Log in</button>
