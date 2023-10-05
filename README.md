@@ -21,3 +21,4 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 -   [] Investigate (and ideally fix) Typescript errors in Svelte and JS files.
 -   [] Improve CSS styling.
 -   [] Study TailwindCSS basics and how to organize messy classes.
+-   [] Test on mobile and different browsers.
