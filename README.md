@@ -22,16 +22,18 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 
 -   [x] Add local storage or database with authentication.
 -   [x] Load the data upon each page load.
--   [ ] Add dates to tasks
--   [ ] Add ability to sort by date
--   [ ] Make pages responsive (good looking on mobile too)
--   [ ] Auto-focus on sign-in and task input forms upon DOM load.
+-   [x] Add dates to tasks
+-   [x] Auto-focus on sign-in and task input forms upon DOM load.
+-   [x] Make pages responsive (good looking on mobile too)
+-   [ ] Option to update text
+-   [ ] Option to update date
+-   [ ] Option to sort by date
 -   [ ] Improve CSS styling.
 -   [ ] Study TailwindCSS basics and how to organize messy classes.
 
 ## Bugs
 
--   [ ] Make Supabase magic sign-in link work for the public Vercel hosted version
+-   [x] Make Supabase magic sign-in link work for the public Vercel hosted version
 -   [ ] Investigate (and ideally fix) Typescript errors in Svelte and JS files.
 
 ## Testing

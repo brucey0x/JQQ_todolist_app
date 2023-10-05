@@ -1,13 +1,19 @@
-<script>
+<script lang="ts">
     import { user } from "../stores/authStore"
     import { addTodo } from "../stores/todoStore"
     
-    let todo = ""
+    let todo: string = ""
+    let dueDate: string | null = null
+    let today = new Date().toISOString().split("T")[0];
 
     const handleSubmit = () => {
         if(todo && $user){
-            addTodo(todo, $user.id)
+            addTodo(todo, dueDate, $user.id)
             todo = ""
+            if(dueDate) {
+                console.log("dueDate is: ", dueDate);
+                dueDate = null
+            }
         }
         console.error(`Error: todo (${todo}) and user (${user}) not both true.`);
     }
@@ -15,8 +21,10 @@
 
 <form class="my-4" on:submit|preventDefault={handleSubmit}>
     <div class="flex flex-col text-sm mb-2">
-        <label for="todo" class="font-bold mb-2 text-gray-800"></label>
-        <input type="text" bind:value={todo} name="todo" placeholder="Insert task" class="appearance-none shadow border border-gray-200 p-2 focus:outline-none focus:border-gray-500 rounded-lg" />
+        <div class="flex flex-row">
+            <input type="text" bind:value={todo} name="todo" placeholder="Insert task" class="basis-1/2 appearance-none shadow border border-gray-200 p-2 focus:outline-none focus:border-gray-500 rounded-lg mr-2" />
+            <input type="date" bind:value={dueDate} min={today} name="todoDate" class="basis-1/2 appearance-none shadow border border-gray-200 p-2 focus:outline-none focus:border-gray-500 rounded-lg ml-2" />
+        </div>
     </div>
     <button type="submit" class="w-full shadow rounded bg-blue-500 hover:bg-blue-600 text-white py-2 px-4">Submit</button>
 </form>

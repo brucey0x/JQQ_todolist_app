@@ -13,6 +13,7 @@ export interface Database {
         Row: {
           completed: boolean | null
           created_at: string
+          due_date: string | null
           id: number
           text: string | null
           user_id: string | null
@@ -20,6 +21,7 @@ export interface Database {
         Insert: {
           completed?: boolean | null
           created_at?: string
+          due_date?: string | null
           id?: number
           text?: string | null
           user_id?: string | null
@@ -27,6 +29,7 @@ export interface Database {
         Update: {
           completed?: boolean | null
           created_at?: string
+          due_date?: string | null
           id?: number
           text?: string | null
           user_id?: string | null

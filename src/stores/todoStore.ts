@@ -6,17 +6,14 @@ export const todos = writable<Todo[]>([])
 export const loadTodos = async () => {
 	const { data, error } = await supabase.from("todos").select("*")
 
-	console.log("supabase todos are is: ", data)
-	console.log("supabase error is: ", error)
-
 	if (error) return console.error(error)
 	todos.set(data as Todo[])
 }
 
-export const addTodo = async (text: string, user_id: string) => {
+export const addTodo = async (text: string, due_date: string | null, user_id: string) => {
 	const { data, error } = await supabase
 		.from("todos")
-		.insert([{ text, completed: false, user_id }])
+		.insert([{ text, due_date, completed: false, user_id }])
 		.select("*")
 
 	console.log("supabase added todo is: ", data)
