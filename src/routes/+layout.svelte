@@ -32,15 +32,22 @@
     })
 </script>
 
-<div class="container mx-auto my-6 max-w-lg">
-    <h1 class="text-2xl font-bold text-center text-gray-800 md:text-3xl">Todo List</h1>
-    {#if $user}
-        <Navbar/>
-        <slot>
-        </slot>
-    {:else}
-        <div class="my-6">
-        </div>
-        <Auth/>
-    {/if}
-</div>
+<svelte:head>
+	<title>Svelte Todo App</title>
+	<meta name="description" content="Budi's Todo App built with Svelte and Supabase." />
+</svelte:head>
+
+<main>
+    <div class="container mx-auto my-6 max-w-lg">
+        <h1 class="text-2xl font-bold text-center text-gray-800 md:text-3xl">Todo List</h1>
+        {#if $user}
+            <Navbar/>
+            <slot>
+            </slot>
+        {:else}
+            <div class="my-6">
+            </div>
+            <Auth/>
+        {/if}
+    </div>
+</main>
