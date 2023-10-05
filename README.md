@@ -12,7 +12,8 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 
 # Todos
 
--   [] Load the data upon each page load.
--   [] Add local storage or database with authentication.
+-   [X] Add local storage or database with authentication.
+-   [X] Load the data upon each page load.
+-   [] Make Supabase magic sign-in link work for the public Vercel hosted version
 -   [] Investigate (and ideally fix) Typescript errors in Svelte and JS files.
 -   [] Study TailwindCSS basics and how to organize messy classes.
