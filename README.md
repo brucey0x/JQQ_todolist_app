@@ -5,7 +5,7 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 -   [Build an App with SvelteKit and Tailwind CSS](https://www.youtube.com/watch?v=YipaPr4Aex8&t=166s)
 -   [SvelteKit and Supabase Tutorial with Authentication - Build a SvelteKit App Part 2](https://www.youtube.com/watch?v=YqIyET7XKIQ)
 
-[Production version of site hosted on Vercel](https://jqq-todolist-app.vercel.app/)
+[Production version of site hosted on Vercel](https://svelte-todo-app-budivoogt.vercel.app/)
 
 # Tweaks
 

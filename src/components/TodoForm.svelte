@@ -14,6 +14,7 @@
                 console.log("dueDate is: ", dueDate);
                 dueDate = null
             }
+            return
         }
         console.error(`Error: todo (${todo}) and user (${user}) not both true.`);
     }
