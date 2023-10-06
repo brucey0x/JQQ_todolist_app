@@ -33,10 +33,10 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 -   [x] Make pages responsive (good looking on mobile too)
 -   [x] Option to update text
 -   [x] Option to update date
--   [ ] Option to sort by date
--   [ ] Drag and drop tasks to different order
--   [ ] Pop-out per task with description and comments which can be edited by user.
 -   [X] Add footer with link to Budi Voogt site.
+-   [ ] Drag and drop tasks to different order
+-   [ ] Option to sort by date
+-   [ ] Pop-out per task with description and comments which can be edited by user.
 -   [ ] Improve CSS styling.
 -   [ ] Study TailwindCSS basics and how to organize messy classes.
 
