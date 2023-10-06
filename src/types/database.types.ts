@@ -15,6 +15,7 @@ export interface Database {
           created_at: string
           due_date: string | null
           id: number
+          order: number | null
           text: string | null
           user_id: string | null
         }
@@ -23,6 +24,7 @@ export interface Database {
           created_at?: string
           due_date?: string | null
           id?: number
+          order?: number | null
           text?: string | null
           user_id?: string | null
         }
@@ -31,6 +33,7 @@ export interface Database {
           created_at?: string
           due_date?: string | null
           id?: number
+          order?: number | null
           text?: string | null
           user_id?: string | null
         }

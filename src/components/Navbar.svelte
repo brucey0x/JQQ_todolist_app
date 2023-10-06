@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { supabase } from "../supabaseClient"
 
-    
     const logout = async () => {
         console.log("Log out");
         const {error} = await supabase.auth.signOut()
