@@ -35,16 +35,24 @@ export const deleteTodo = async (id: number) => {
 }
 
 export const toggleTodoCompleted = async (id: number, currentState: boolean) => {
-	console.log("Before Supabase Update")
 	const { error } = await supabase
 		.from("todos")
 		.update({ completed: !currentState })
 		.match({ id })
-	console.log("After Supabase Update")
 
 	if (error) return console.error(error)
 
-	console.log("todo.completed updated to: ", !currentState)
+	// Fetch the updated todo by ID
+	const { data: updatedData, error: fetchError } = await supabase
+		.from("todos")
+		.select("completed")
+		.match({ id })
+
+	if (fetchError) return console.error(fetchError)
+
+	if (updatedData && updatedData.length > 0) {
+		console.log("todo.completed updated to:", updatedData[0].completed)
+	}
 
 	todos.update((currentTodos: Todo[]) =>
 		currentTodos.map((todo: Todo) =>

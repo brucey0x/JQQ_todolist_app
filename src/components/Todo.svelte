@@ -3,14 +3,16 @@
     
     export let todo: Todo
 
-    let isEditing: {text: boolean, date: boolean} = {
-        text: false,
-        date: false
-    }
+    let isEditingText: boolean = false
+    let isEditingDate: boolean = false
     let tempText: string = todo.text
-    let tempDate: string | null = todo.due_date
+    let tempDate: string | null = todo.due_date || null
 
-    $: console.log('Is Todo Completed?', todo.completed);
+    let inputTextElement: HTMLInputElement
+    let inputDateElement: HTMLInputElement
+
+    $: if (isEditingText && inputTextElement) {inputTextElement.focus()}
+    $: if (isEditingDate && inputDateElement) {inputDateElement.focus()}
 
 </script>
 
@@ -23,33 +25,35 @@
     class="mr-2 form-checkbox h-5 w-5" />
     
     <span class={`flex-1 text-gray-800 ${todo.completed ? 'line-through' : ''}`}>
-        {#if isEditing}
+        {#if isEditingText}
             <input 
             type="text" 
+            bind:this={inputTextElement}
             bind:value={tempText} 
-            on:blur={() => { isEditing.text = false, updateTodo(todo.id, tempText, tempDate)}}
+            on:blur={() => { isEditingText = false, updateTodo(todo.id, tempText, tempDate)}}
             on:keydown={(event) => { if (event.key === "Enter") { event.target.blur()}}}
             />
-         {:else}
+            {:else}
             <button 
-            on:click={() => isEditing.text = true}>
+            on:click={() => isEditingText = true}>
             {todo.text}
-            </button>
-         {/if}
-        </span>
+        </button>
+        {/if}
+    </span>
         
     <span class={`flex-none text-gray-800 ml-2 ${todo.completed ? 'line-through' : ''}`}>
-        {#if isEditing}
-            <input 
+        {#if isEditingDate}
+        <input 
             type="date"
+            bind:this={inputDateElement}
             bind:value={tempDate}
-            on:blur={() => { isEditing.date = false, updateTodo(todo.id, tempText, tempDate)}}
+            on:blur={() => { isEditingDate = false, updateTodo(todo.id, tempText, tempDate)}}
             on:keydown={(event) => { if (event.key === "Enter") { event.target.blur()}}}
             />
         {:else}
-            <button 
-            on:click={() => isEditing.date = true}>
-            {todo.due_date ? todo.due_date : ""}
+            <button
+            on:click={() => isEditingDate = true}>
+            {todo.due_date || "N/A"}
             </button>
         {/if}
     </span>
