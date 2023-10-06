@@ -53,39 +53,15 @@ export const toggleTodoCompleted = async (id: number, currentState: boolean) => 
 		return updatedTodos
 	})
 }
-// export const toggleTodoCompleted = async (id: number, currentState: boolean) => {
-// 	const { error } = await supabase
-// 		.from("todos")
-// 		.update({ completed: !currentState })
-// 		.match({ id })
-
-// 	if (error) return console.error(error)
-
-// 	// Fetch the updated todo by ID
-// 	const { data: updatedData, error: fetchError } = await supabase
-// 		.from("todos")
-// 		.select("completed")
-// 		.match({ id })
-
-// 	if (fetchError) return console.error(fetchError)
-
-// 	if (updatedData && updatedData.length > 0) {
-// 		console.log("todo.completed updated to:", updatedData[0].completed)
-// 	}
-
-// 	todos.update((currentTodos: Todo[]) =>
-// 		currentTodos.map((todo: Todo) =>
-// 			todo.id === id ? { ...todo, completed: !todo.completed } : todo
-// 		)
-// 	)
-// }
 
 export const updateTodo = async (id: number, newText: string, newDate: string | null) => {
+	const checkedDate = newDate || null
+
 	const { error } = await supabase
 		.from("todos")
 		.update({
 			text: newText,
-			due_date: newDate
+			due_date: checkedDate
 		})
 		.match({ id })
 

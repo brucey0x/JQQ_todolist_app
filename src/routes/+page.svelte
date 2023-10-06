@@ -7,8 +7,9 @@
 <main>
     <div class="px-4">
     <TodoForm/>
-    {#each $todos as todo}
-        <Todo todo={todo} index={todo.id}/>
+    <!-- {#each $todos as todo} -->
+    {#each $todos.sort((a,b) => a.id - b.id) as todo}
+        <Todo todo={todo}/>
     {/each}
     </div>
 </main>
