@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { deleteTodo, toggleTodoCompleted, updateTodo } from "../stores/todoStore"
+	import { onMount } from "svelte"
+	import { deleteTodo, todos, toggleTodoCompleted, updateTodo } from "../stores/todoStore"
     
     export let todo: Todo
 
@@ -10,7 +11,23 @@
 
     let inputTextElement: HTMLInputElement
     let inputDateElement: HTMLInputElement
+    let textSpan: HTMLElement
+    let dateSpan: HTMLElement
 
+    onMount(() => {
+        const unsubscribe = todos.subscribe($todos => {
+            const updatedTodo = $todos.find(t => t.id === todo.id)
+            if (updatedTodo) {
+                tempText = updatedTodo.text
+                tempDate = updatedTodo.due_date || null
+                todo = updatedTodo
+            }
+        })
+
+        return unsubscribe
+    })
+
+    $: completedStyleClass = todo.completed ? 'line-through' : ""
     $: if (isEditingText && inputTextElement) {inputTextElement.focus()}
     $: if (isEditingDate && inputDateElement) {inputDateElement.focus()}
 
@@ -21,10 +38,10 @@
     name="completed"
     type="checkbox"
     checked={todo.completed}
-    on:change|stopImmediatePropagation={() => {toggleTodoCompleted(todo.id, todo.completed)}}
+    on:change|stopImmediatePropagation={async () => await toggleTodoCompleted(todo.id, todo.completed)}
     class="mr-2 form-checkbox h-5 w-5" />
     
-    <span class={`flex-1 text-gray-800 ${todo.completed ? 'line-through' : ''}`}>
+    <span class={`flex-1 text-gray-800`} bind:this={textSpan}>
         {#if isEditingText}
             <input 
             type="text" 
@@ -35,13 +52,14 @@
             />
             {:else}
             <button 
+            class={`${completedStyleClass}`}
             on:click={() => isEditingText = true}>
             {todo.text}
         </button>
         {/if}
     </span>
         
-    <span class={`flex-none text-gray-800 ml-2 ${todo.completed ? 'line-through' : ''}`}>
+    <span class={`flex-none text-gray-800 ml-2`} bind:this={dateSpan}>
         {#if isEditingDate}
         <input 
             type="date"
@@ -52,6 +70,7 @@
             />
         {:else}
             <button
+            class={`${completedStyleClass}`}
             on:click={() => isEditingDate = true}>
             {todo.due_date || "N/A"}
             </button>
