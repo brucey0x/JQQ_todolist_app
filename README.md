@@ -7,7 +7,13 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 
 [Production version of site hosted on Vercel](https://svelte-todo-app-budivoogt.vercel.app/)
 
-# Tweaks
+# Tech stack
+
+-   Svelte
+-   Typescript
+-   Supabase
+
+## Tweaks
 
 -   Using `pnpm` instead of `npm`.
 -   Using Typescript instead of vanilla JS
@@ -28,6 +34,7 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 -   [ ] Option to update text
 -   [ ] Option to update date
 -   [ ] Option to sort by date
+-   [ ] Pop-out per task with description and comments which can be edited by user.
 -   [ ] Improve CSS styling.
 -   [ ] Study TailwindCSS basics and how to organize messy classes.
 

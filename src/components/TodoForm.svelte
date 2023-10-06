@@ -8,7 +8,8 @@
 
     const handleSubmit = () => {
         if(todo && $user){
-            addTodo(todo, dueDate, $user.id)
+            let trimmedTodo = todo.trim()
+            addTodo(trimmedTodo, dueDate, $user.id)
             todo = ""
             if(dueDate) {
                 console.log("dueDate is: ", dueDate);

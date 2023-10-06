@@ -21,8 +21,7 @@ export const addTodo = async (text: string, due_date: string | null, user_id: st
 	if (error) return console.error(error)
 
 	if (data && text) {
-		// Update todos to include new todo that's been added to Supabase
-		todos.update((currentValue) => [...currentValue, data[0]])
+		todos.update((currentTodos: Todo[]) => [...currentTodos, data[0]])
 	}
 }
 
@@ -36,16 +35,38 @@ export const deleteTodo = async (id: number) => {
 }
 
 export const toggleTodoCompleted = async (id: number, currentState: boolean) => {
+	console.log("Before Supabase Update")
 	const { error } = await supabase
 		.from("todos")
 		.update({ completed: !currentState })
+		.match({ id })
+	console.log("After Supabase Update")
+
+	if (error) return console.error(error)
+
+	console.log("todo.completed updated to: ", !currentState)
+
+	todos.update((currentTodos: Todo[]) =>
+		currentTodos.map((todo: Todo) =>
+			todo.id === id ? { ...todo, completed: !todo.completed } : todo
+		)
+	)
+}
+
+export const updateTodo = async (id: number, newText: string, newDate: string | null) => {
+	const { error } = await supabase
+		.from("todos")
+		.update({
+			text: newText,
+			due_date: newDate
+		})
 		.match({ id })
 
 	if (error) return console.error(error)
 
 	todos.update((currentTodos: Todo[]) =>
 		currentTodos.map((todo: Todo) =>
-			todo.id === id ? { ...todo, completed: !todo.completed } : todo
+			todo.id === id ? { ...todo, text: newText, due_date: newDate } : todo
 		)
 	)
 }
