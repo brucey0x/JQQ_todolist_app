@@ -2,11 +2,15 @@
 	import { onMount } from "svelte"
 	import { supabase } from "../supabaseClient"
     
-    let load = "false"
     let userEmail: string
     let emailInput: HTMLInputElement
+    let showDialog: boolean = false
+    let modalDiv: HTMLElement
 
     onMount(() => emailInput.focus())
+
+    $: keydownAction = (event: KeyboardEvent) => { if (event.key === "Enter" || event.key === "Escape") {showDialog = false}}
+    $: if(showDialog) {modalDiv.focus()}
 
     const getURL = () => {
     let url =
@@ -36,11 +40,10 @@
             if(error) throw error
 
             userEmail = ""
-
-            alert("Check your email for the login link.")
+            showDialog = true
         } catch (error) {
             console.error(error)
-            alert(error)
+            showDialog = false
         }
     }
 </script>
@@ -55,3 +58,24 @@
         type="submit">Log in</button>
     </div>
 </form>
+
+{#if showDialog}
+    <div 
+    class="fixed inset-0 flex items-center justify-center z-50 shadow-md backdrop-blur-sm"
+    bind:this={modalDiv}>
+    <div 
+    class="bg-white p-4 rounded-lg w-1/3 shadow-md"
+    tabindex="0" 
+    role="dialog"
+    on:blur={() => { showDialog = false}}
+    on:keydown={keydownAction}
+    >
+        <h1 class="text-xl m-2 text-center">Aba cadabra... login! 🪄</h1>
+        <p class="m-4">Check your email for the login link.</p>
+        <button 
+        class="bg-blue-500 text-white p-2 rounded flex mx-auto shadow" 
+        on:click={() => (showDialog = false)}
+        on:keydown={keydownAction}>Close</button>
+    </div>
+    </div>
+{/if}
