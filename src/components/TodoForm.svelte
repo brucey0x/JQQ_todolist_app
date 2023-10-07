@@ -1,10 +1,10 @@
 <script lang="ts">
+    import { today } from "$lib/utils"
     import { user } from "../stores/authStore"
     import { addTodo } from "../stores/todoStore"
     
     let todo: string = ""
     let dueDate: string | null = null
-    let today = new Date().toISOString().split("T")[0];
 
     const handleSubmit = () => {
         if(todo && $user){

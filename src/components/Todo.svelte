@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { today } from "$lib/utils"
 	import { onMount } from "svelte"
 	import { deleteTodo, todos, toggleTodoCompleted, updateTodo } from "../stores/todoStore"
     
@@ -11,8 +12,6 @@
 
     let inputTextElement: HTMLInputElement
     let inputDateElement: HTMLInputElement
-    let textSpan: HTMLElement
-    let dateSpan: HTMLElement
 
     onMount(() => {
         const unsubscribe = todos.subscribe($todos => {
@@ -28,6 +27,7 @@
     })
 
     $: completedStyleClass = todo.completed ? 'line-through' : ""
+    $: keydownAction = (event: KeyboardEvent) => { if (event.key === "Enter") { (event.target as HTMLInputElement).blur()}}
     $: if (isEditingText && inputTextElement) {inputTextElement.focus()}
     $: if (isEditingDate && inputDateElement) {inputDateElement.focus()}
 
@@ -41,14 +41,14 @@
     on:change|stopImmediatePropagation={async () => await toggleTodoCompleted(todo.id, todo.completed)}
     class="mr-2 form-checkbox h-5 w-5" />
     
-    <span class={`flex-1 text-gray-800`} bind:this={textSpan}>
+    <span class={`flex-1 text-gray-800`}>
         {#if isEditingText}
             <input 
             type="text" 
             bind:this={inputTextElement}
             bind:value={tempText} 
             on:blur={() => { isEditingText = false, updateTodo(todo.id, tempText, tempDate)}}
-            on:keydown={(event) => { if (event.key === "Enter") { event.target.blur()}}}
+            on:keydown={keydownAction}
             />
             {:else}
             <button 
@@ -59,14 +59,15 @@
         {/if}
     </span>
         
-    <span class={`flex-none text-gray-800 ml-2`} bind:this={dateSpan}>
+    <span class={`flex-none text-gray-800 ml-2`}>
         {#if isEditingDate}
         <input 
             type="date"
+            min={today}
             bind:this={inputDateElement}
             bind:value={tempDate}
             on:blur={() => { isEditingDate = false, updateTodo(todo.id, tempText, tempDate)}}
-            on:keydown={(event) => { if (event.key === "Enter") { event.target.blur()}}}
+            on:keydown={keydownAction}
             />
         {:else}
             <button
