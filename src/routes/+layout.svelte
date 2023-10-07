@@ -58,7 +58,7 @@
             {/if}
     </main>
 
-    <footer class="bg-white rounded-lg shadow m-4 dark:bg-blue-400">
+    <footer class="shadow mt-4 bg-blue-400">
         <Footer/>
     </footer>
 </div>

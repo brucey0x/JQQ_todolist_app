@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from "svelte"
+	import { onMount, tick } from "svelte"
 	import { supabase } from "../supabaseClient"
     
     let userEmail: string
@@ -9,8 +9,19 @@
 
     onMount(() => emailInput.focus())
 
-    $: keydownAction = (event: KeyboardEvent) => { if (event.key === "Enter" || event.key === "Escape") {showDialog = false}}
-    $: if(showDialog) {modalDiv.focus()}
+    const outsideClick = (event: MouseEvent) => {
+        if (event.target !== modalDiv) {
+            showDialog = false;
+    }};
+
+    $: keydownAction = (event: KeyboardEvent) => { if (event.key === "Enter" || event.key === "Escape" || event.key === "Space") {showDialog = false}}
+    $: if (showDialog) {
+    tick().then(() => {
+        if (modalDiv) {
+        modalDiv.focus();
+        }
+    });
+    }
 
     const getURL = () => {
     let url =
@@ -60,22 +71,27 @@
 </form>
 
 {#if showDialog}
-    <div 
+<div 
     class="fixed inset-0 flex items-center justify-center z-50 shadow-md backdrop-blur-sm"
-    bind:this={modalDiv}>
+    bind:this={modalDiv}
+    on:click={() => { showDialog = false}}
+    on:keydown={keydownAction}
+    tabindex="0" 
+    role="button"
+    >
     <div 
     class="bg-white p-4 rounded-lg w-1/3 shadow-md"
+    role="button"
     tabindex="0" 
-    role="dialog"
-    on:blur={() => { showDialog = false}}
-    on:keydown={keydownAction}
+    on:click|stopPropagation
+    on:keydown|stopPropagation
     >
         <h1 class="text-xl m-2 text-center">Aba cadabra... login! 🪄</h1>
         <p class="m-4">Check your email for the login link.</p>
         <button 
-        class="bg-blue-500 text-white p-2 rounded flex mx-auto shadow" 
-        on:click={() => (showDialog = false)}
-        on:keydown={keydownAction}>Close</button>
+            class="bg-blue-500 text-white p-2 rounded flex mx-auto shadow" 
+            on:click={() => (showDialog = false)}
+        >Close</button>
     </div>
     </div>
 {/if}
