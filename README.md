@@ -34,7 +34,7 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 -   [x] Option to update text
 -   [x] Option to update date
 -   [x] Add footer with link to Budi Voogt site.
--   [ ] Improve sign-in confirmation to something more fancy
+-   [x] Improve sign-in confirmation to something more fancy
 -   [ ] Option to sort by date
 -   [ ] Filter by completion state: Active, Completed, All.
 -   [ ] Drag and drop tasks to different order
