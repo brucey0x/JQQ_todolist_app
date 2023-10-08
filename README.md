@@ -31,9 +31,13 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 -   [x] Add dates to tasks
 -   [x] Auto-focus on sign-in and task input forms upon DOM load.
 -   [x] Make pages responsive (good looking on mobile too)
--   [ ] Option to update text
--   [ ] Option to update date
+-   [x] Option to update text
+-   [x] Option to update date
+-   [ ] Modularize the update components of `todoStore.ts`
+-   [ ] Add completed tasks at the bottom of the list
+-   [ ] Add new tasks at the top of the list
 -   [ ] Option to sort by date
+-   [ ] Filter by `to do, completed, all`
 -   [ ] Pop-out per task with description and comments which can be edited by user.
 -   [ ] Improve CSS styling.
 -   [ ] Study TailwindCSS basics and how to organize messy classes.
