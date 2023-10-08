@@ -1,18 +1,30 @@
 <script lang="ts">
-	import { dndzone } from "svelte-dnd-action"
+	import { dndzone, type DndEvent } from "svelte-dnd-action"
 	import Todo from "../components/Todo.svelte"
 	import TodoForm from "../components/TodoForm.svelte"
 	import { todos, updateTodoOrder } from "../stores/todoStore"
 
-    export let items
+    export let items: Todo[]
+    let previousItems: Todo[] = []
 
-    function handleConsider (e: CustomEvent<{ items: Todo[]}>) {
+    function handleConsider (e: CustomEvent<DndEvent<{ items: Todo[]}>>) {
         items = e.detail.items
+        console.log("handleConsider e.detail.items: ", items);
     }
-
-    function handleFinalize (e: CustomEvent<{ items: Todo[]}>) {
+    
+    async function handleFinalize (e: CustomEvent<DndEvent<{ items: Todo[]}>>) {
         const { items: newItems } = e.detail
-        updateTodoOrder(newItems)
+        console.log("handleFinalize e.detail: ", newItems);
+
+        previousItems = [...items]
+
+        try {
+            await updateTodoOrder(newItems)
+        } catch (error) {
+            console.error("Failed to update, reverting changes", error);
+            items = previousItems
+        }
+
     }
 
 </script>
