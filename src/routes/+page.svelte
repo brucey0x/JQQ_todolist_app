@@ -7,8 +7,7 @@
 <main>
     <div class="px-4">
     <TodoForm/>
-    <!-- {#each $todos as todo} -->
-    {#each $todos.sort((a,b) => (a.completed - b.completed) || (b.id - a.id)) as todo}
+    {#each $todos as todo(todo.id)}
         <Todo todo={todo}/>
     {/each}
     </div>

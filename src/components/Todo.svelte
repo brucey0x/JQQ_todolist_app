@@ -27,6 +27,16 @@
         return unsubscribe
     })
 
+    function keydownHandler (event: KeyboardEvent) {
+        if (event.key === "Enter" && event.target) event.target.blur()
+    }
+    
+    function blurHandler () {
+        isEditingText = false
+        updateTodo(todo.id, tempText, tempDate)
+        
+    }
+
     $: completedStyleClass = todo.completed ? 'line-through' : ""
     $: if (isEditingText && inputTextElement) {inputTextElement.focus()}
     $: if (isEditingDate && inputDateElement) {inputDateElement.focus()}
@@ -43,12 +53,12 @@
     
     <span class={`flex-1 text-gray-800`} bind:this={textSpan}>
         {#if isEditingText}
-            <input 
+        <input 
             type="text" 
             bind:this={inputTextElement}
             bind:value={tempText} 
-            on:blur={() => { isEditingText = false, updateTodo(todo.id, tempText, tempDate)}}
-            on:keydown={(event) => { if (event.key === "Enter") { event.target.blur()}}}
+            on:blur={blurHandler}
+            on:keydown={(event) => keydownHandler (event)}
             />
             {:else}
             <button 
@@ -58,15 +68,15 @@
         </button>
         {/if}
     </span>
-        
     <span class={`flex-none text-gray-800 ml-2`} bind:this={dateSpan}>
         {#if isEditingDate}
         <input 
-            type="date"
+        type="date"
             bind:this={inputDateElement}
             bind:value={tempDate}
-            on:blur={() => { isEditingDate = false, updateTodo(todo.id, tempText, tempDate)}}
-            on:keydown={(event) => { if (event.key === "Enter") { event.target.blur()}}}
+            on:blur={blurHandler}
+            on:keydown={(event) => keydownHandler (event)}
+            
             />
         {:else}
             <button

@@ -3,6 +3,11 @@ import { supabase } from "../supabaseClient"
 
 export const todos = writable<Todo[]>([])
 
+let currentState: Todo[] = []
+todos.subscribe((value) => {
+	currentState = value
+})
+
 export const loadTodos = async () => {
 	const { data, error } = await supabase.from("todos").select("*")
 
@@ -11,9 +16,11 @@ export const loadTodos = async () => {
 }
 
 export const addTodo = async (text: string, due_date: string | null, user_id: string) => {
+	const orderIndex = currentState.length + 1
+
 	const { data, error } = await supabase
 		.from("todos")
-		.insert([{ text, due_date, completed: false, user_id }])
+		.insert([{ text, due_date, completed: false, user_id, order: orderIndex }])
 		.select("*")
 
 	console.log("supabase added todo is: ", data)
@@ -72,4 +79,6 @@ export const updateTodo = async (id: number, newText: string, newDate: string | 
 			todo.id === id ? { ...todo, text: newText, due_date: newDate } : todo
 		)
 	)
+
+	console.log("updateTodo executed. Updated todos are: ", todos)
 }

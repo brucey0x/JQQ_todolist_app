@@ -3,4 +3,5 @@ type Todo = {
 	completed: boolean
 	id: number
 	due_date: string | null
+	order: number | null
 }
