@@ -3,12 +3,12 @@
 	import { deleteTodo, todos, toggleTodoCompleted, updateTodo } from "../stores/todoStore"
     
     export let todo: Todo
-    export let order: number
 
     let isEditingText: boolean = false
     let isEditingDate: boolean = false
     let tempText: string = todo.text
     let tempDate: string | null = todo.due_date || null
+    let today = new Date().toISOString().split("T")[0]
 
     let inputTextElement: HTMLInputElement
     let inputDateElement: HTMLInputElement
@@ -27,14 +27,11 @@
         return unsubscribe
     })
 
-    function keydownHandler (event: KeyboardEvent) {
-        if (event.key === "Enter" && event.target) event.target.blur()
-    }
-    
-    function blurHandler () {
-        isEditingText = false
-        updateTodo(todo.id, tempText, tempDate)
-        
+    function changeHandler (event: Event) {
+        const target = event.target as HTMLInputElement
+        if (target === inputTextElement || target === inputDateElement) updateTodo(todo.id, tempText, tempDate)
+        if (target === inputTextElement) isEditingText = false
+        if (target === inputDateElement) isEditingDate = false        
     }
 
     $: completedStyleClass = todo.completed ? 'line-through' : ""
@@ -57,8 +54,7 @@
         type="text" 
         bind:this={inputTextElement}
         bind:value={tempText} 
-        on:blur={blurHandler}
-        on:keydown={(event) => keydownHandler (event)}
+        on:change={changeHandler}
         />
         {:else}
         <button 
@@ -73,10 +69,10 @@
         {#if isEditingDate}
         <input 
         type="date"
+        min={today}
         bind:this={inputDateElement}
         bind:value={tempDate}
-        on:blur={blurHandler}
-        on:keydown={(event) => keydownHandler (event)}
+        on:change={changeHandler}
         />
         {:else}
         <button
