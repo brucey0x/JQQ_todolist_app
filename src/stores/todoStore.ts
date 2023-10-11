@@ -16,7 +16,18 @@ export const loadTodos = async () => {
 }
 
 const updateTodoStore = (updateLogic: (currentTodos: Todo[]) => Todo[]) => {
-	todos.update((currentTodos: Todo[]) => updateLogic(currentTodos))
+	todos.update((currentTodos) => updateLogic(currentTodos))
+}
+
+const supabaseUpdater = async (vars: UpdateVars) => {
+	// Separate id and other update values from vars
+	const { id, ...updateValues } = vars
+	if (!id) return
+
+	const { error } = await supabase.from("todos").update(updateValues).match({ id })
+	console.log("Supabase updated with the vars: ", vars)
+
+	if (error) return console.error(error)
 }
 
 export const addTodo = async (text: string, due_date: string | null, user_id: string) => {
@@ -41,18 +52,11 @@ export const deleteTodo = async (id: number) => {
 
 	if (error) return console.error(error)
 
-	// Filter todos array to retain the IDs which aren't being deleted.
-	// todos.update((todos) => todos.filter((todo) => todo.id !== id))
 	updateTodoStore((todos) => todos.filter((todo) => todo.id !== id))
 }
 
 export const toggleTodoCompleted = async (id: number, currentState: boolean) => {
-	const { error } = await supabase
-		.from("todos")
-		.update({ completed: !currentState })
-		.match({ id })
-
-	if (error) return console.error(error)
+	supabaseUpdater({ completed: !currentState, id })
 
 	updateTodoStore((currentTodos: Todo[]) =>
 		currentTodos.map((todo: Todo) =>
@@ -64,15 +68,7 @@ export const toggleTodoCompleted = async (id: number, currentState: boolean) => 
 export const updateTodo = async (id: number, newText: string, newDate: string | null) => {
 	const checkedDate = newDate || null
 
-	const { error } = await supabase
-		.from("todos")
-		.update({
-			text: newText,
-			due_date: checkedDate
-		})
-		.match({ id })
-
-	if (error) return console.error(error)
+	supabaseUpdater({ text: newText, due_date: checkedDate, id })
 
 	updateTodoStore((currentTodos: Todo[]) =>
 		currentTodos.map((todo: Todo) =>

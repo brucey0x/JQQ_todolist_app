@@ -5,3 +5,10 @@ type Todo = {
 	due_date: string | null
 	order: number | null
 }
+
+type UpdateVars = {
+	completed?: boolean
+	text?: string
+	due_date?: string | null
+	id?: number
+}
