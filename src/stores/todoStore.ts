@@ -4,19 +4,27 @@ import { supabase } from "../supabaseClient"
 export const todos = writable<Todo[]>([])
 
 let currentState: Todo[] = []
+
 todos.subscribe((value) => {
 	currentState = value
 })
 
 export const loadTodos = async () => {
-	const { data, error } = await supabase.from("todos").select("*")
+	const { data, error } = await supabase
+		.from("todos")
+		.select("*")
+		.order("completed", { ascending: true })
+		.order("order", { ascending: false })
 
 	if (error) return console.error(error)
 	todos.set(data as Todo[])
 }
 
 const updateTodoStore = (updateLogic: (currentTodos: Todo[]) => Todo[]) => {
-	todos.update((currentTodos) => updateLogic(currentTodos))
+	todos.update((currentTodos) => {
+		const newTodos = updateLogic(currentTodos)
+		return newTodos.sort(sortTodos)
+	})
 }
 
 const supabaseUpdater = async (vars: UpdateVars) => {
@@ -28,6 +36,11 @@ const supabaseUpdater = async (vars: UpdateVars) => {
 	console.log("Supabase updated with the vars: ", vars)
 
 	if (error) return console.error(error)
+}
+
+const sortTodos = (a: Todo, b: Todo) => {
+	if (a.completed !== b.completed) return a.completed ? 1 : -1
+	return b.order - a.order
 }
 
 export const addTodo = async (text: string, due_date: string | null, user_id: string) => {

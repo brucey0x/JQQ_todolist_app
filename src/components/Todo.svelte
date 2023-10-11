@@ -70,7 +70,6 @@
         class={`${completedStyleClass}`}
         on:click={() => isEditingText = true}>
         {todo.text}
-        Order #: {todo.order}
         </button>
         {/if}
     </span>
