@@ -29,6 +29,10 @@
     
     function blurHandler (event: FocusEvent) {
         const target = event.target as HTMLInputElement
+        if (target === inputTextElement) {
+            updateTodo(todo.id, tempText, tempDate)
+            isEditingText = false
+        }
         if (target === inputDateElement) {
             updateTodo(todo.id, tempText, tempDate)
             isEditingDate = false
@@ -38,7 +42,12 @@
     function keydownHandler (event: KeyboardEvent) {
         const target = event.target as HTMLInputElement
         if (event.key === "Enter") {
-            isEditingDate = false
+            if (target === inputTextElement) {
+                isEditingText = false
+            }
+            if (target === inputDateElement) {
+                isEditingDate = false
+            }
         }
     }
 
