@@ -26,12 +26,20 @@
         })
         return unsubscribe
     })
-
-    function changeHandler (event: Event) {
+    
+    function blurHandler (event: FocusEvent) {
         const target = event.target as HTMLInputElement
-        if (target === inputTextElement || target === inputDateElement) updateTodo(todo.id, tempText, tempDate)
-        if (target === inputTextElement) isEditingText = false
-        if (target === inputDateElement) isEditingDate = false        
+        if (target === inputDateElement) {
+            updateTodo(todo.id, tempText, tempDate)
+            isEditingDate = false
+        }
+    }
+    
+    function keydownHandler (event: KeyboardEvent) {
+        const target = event.target as HTMLInputElement
+        if (event.key === "Enter") {
+            isEditingDate = false
+        }
     }
 
     $: completedStyleClass = todo.completed ? 'line-through' : ""
@@ -54,7 +62,8 @@
         type="text" 
         bind:this={inputTextElement}
         bind:value={tempText} 
-        on:change={changeHandler}
+        on:keydown={keydownHandler}
+        on:blur={blurHandler}
         />
         {:else}
         <button 
@@ -72,7 +81,8 @@
         min={today}
         bind:this={inputDateElement}
         bind:value={tempDate}
-        on:change={changeHandler}
+        on:keydown={keydownHandler}
+        on:blur={blurHandler}
         />
         {:else}
         <button
