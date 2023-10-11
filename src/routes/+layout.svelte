@@ -21,6 +21,7 @@
     )
 
     supabase.auth.onAuthStateChange((event, session: Session | null) => {
+        
         if(session?.user) {
             const authedUser = session.user
             user.set(authedUser)

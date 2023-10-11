@@ -3,6 +3,7 @@
 	import { deleteTodo, todos, toggleTodoCompleted, updateTodo } from "../stores/todoStore"
     
     export let todo: Todo
+    export let order: number
 
     let isEditingText: boolean = false
     let isEditingDate: boolean = false
@@ -23,7 +24,6 @@
                 todo = updatedTodo
             }
         })
-
         return unsubscribe
     })
 
@@ -54,17 +54,18 @@
     <span class={`flex-1 text-gray-800`} bind:this={textSpan}>
         {#if isEditingText}
         <input 
-            type="text" 
-            bind:this={inputTextElement}
-            bind:value={tempText} 
-            on:blur={blurHandler}
-            on:keydown={(event) => keydownHandler (event)}
-            />
-            {:else}
-            <button 
-            class={`${completedStyleClass}`}
-            on:click={() => isEditingText = true}>
-            {todo.text}
+        type="text" 
+        bind:this={inputTextElement}
+        bind:value={tempText} 
+        on:blur={blurHandler}
+        on:keydown={(event) => keydownHandler (event)}
+        />
+        {:else}
+        <button 
+        class={`${completedStyleClass}`}
+        on:click={() => isEditingText = true}>
+        {todo.text}
+        Order #: {todo.order}
         </button>
         {/if}
     </span>
@@ -72,18 +73,17 @@
         {#if isEditingDate}
         <input 
         type="date"
-            bind:this={inputDateElement}
-            bind:value={tempDate}
-            on:blur={blurHandler}
-            on:keydown={(event) => keydownHandler (event)}
-            
-            />
+        bind:this={inputDateElement}
+        bind:value={tempDate}
+        on:blur={blurHandler}
+        on:keydown={(event) => keydownHandler (event)}
+        />
         {:else}
-            <button
-            class={`${completedStyleClass}`}
-            on:click={() => isEditingDate = true}>
-            {todo.due_date || "N/A"}
-            </button>
+        <button
+        class={`${completedStyleClass}`}
+        on:click={() => isEditingDate = true}>
+        {todo.due_date || "N/A"}
+        </button>
         {/if}
     </span>
 
