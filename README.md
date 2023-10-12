@@ -33,9 +33,9 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 -   [x] Make pages responsive (good looking on mobile too)
 -   [x] Option to update text
 -   [x] Option to update date
--   [ ] Modularize the update components of `todoStore.ts`
--   [ ] Add completed tasks at the bottom of the list
--   [ ] Add new tasks at the top of the list
+-   [x] Modularize the update components of `todoStore.ts`
+-   [x] Add completed tasks at the bottom of the list
+-   [x] Add new tasks at the top of the list
 -   [ ] Option to sort by date
 -   [ ] Filter by `to do, completed, all`
 -   [ ] Pop-out per task with description and comments which can be edited by user.

@@ -12,8 +12,13 @@
             <h2 class="text-2xl text-center">What do you need to do?</h2>
             <div class="px-4">
                 <TodoForm/>
+                <div class="bg-white flex flex-row text-center shadow border border-gray-200 rounded-lg mt-4 py-2 px-4">
+                    <div class="grow font-bold">Status</div>
+                    <div class="grow font-bold">Task</div>
+                    <div class="grow font-bold">Due Date</div>
+                </div>
                 {#each $todos as todo(todo.id)}
-                    <Todo todo={todo}/>
+                <Todo todo={todo}/>
                 {/each}
             </div>
         </div>

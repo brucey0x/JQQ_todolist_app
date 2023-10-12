@@ -29,12 +29,12 @@
     
     function blurHandler (event: FocusEvent) {
         const target = event.target as HTMLInputElement
-        if (target === inputTextElement) {
-            updateTodo(todo.id, tempText, tempDate)
-            isEditingText = false
-        }
         if (target === inputDateElement) {
             updateTodo(todo.id, tempText, tempDate)
+            if (target === inputTextElement) {
+                updateTodo(todo.id, tempText, tempDate)
+                isEditingText = false
+            }
             isEditingDate = false
         }
     }
@@ -63,7 +63,7 @@
     type="checkbox"
     checked={todo.completed}
     on:change|stopImmediatePropagation={async () => await toggleTodoCompleted(todo.id, todo.completed)}
-    class="mr-2 form-checkbox h-5 w-5" />
+    class="mr-4 form-checkbox h-5 w-5 hover:" />
     
     <span class={`flex-1 text-gray-800`} bind:this={textSpan}>
         {#if isEditingText}
@@ -103,7 +103,7 @@
 
     <button
     type="button"
-    class="text-sm bg-red-500 hover:bg-red-600 text-white py-1 px-2 ml-2 rounded focus:outline-none focus:shadow-outline"
-    on:click={() => deleteTodo(todo.id)}>Delete</button>
+    class="text-sm bg-red-300 hover:bg-red-600 text-white py-1 px-2 ml-4 rounded focus:outline-none focus:shadow-outline"
+    on:click={() => deleteTodo(todo.id)}>X</button>
 
 </li>
