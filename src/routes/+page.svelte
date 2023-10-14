@@ -3,8 +3,31 @@
 	import Todo from "../components/Todo.svelte"
 	import TodoForm from "../components/TodoForm.svelte"
 	import { user } from "../stores/authStore"
-	import { todos } from "../stores/todoStore"
+	import { setSortAndFilter, todos } from "../stores/todoStore"
+
+    let sortBy: string = "due_date"
+    let filterBy: string = "All"
+    let showSortMenu = false;
+    let showFilterMenu = false;
+    let sortAscending = true; // To keep track of ascending or descending
+
+    function applySortAndFilter () {
+        setSortAndFilter(sortBy, filterBy)
+    }
 </script>
+
+
+<style>
+  .menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+  }
+  .show-menu {
+    display: block;
+  }
+</style>
 
 <main>
     {#if $user}
@@ -12,10 +35,23 @@
             <h2 class="text-2xl text-center">What do you need to do?</h2>
             <div class="px-4">
                 <TodoForm/>
-                <div class="bg-white flex flex-row text-center shadow border border-gray-200 rounded-lg mt-4 py-2 px-4">
-                    <div class="grow font-bold">Status</div>
-                    <div class="grow font-bold">Task</div>
-                    <div class="grow font-bold">Due Date</div>
+                <!-- Sort and Filter UI -->
+                <div class="flex flex-row justify-between p-4 bg-white rounded-lg py-2 mt-4 shadow">
+                    <div>
+                    <label for="sortBy">Sort By:</label>
+                    <select id="sortBy" bind:value={sortBy} on:change={applySortAndFilter}>
+                        <option value="date_created" selected>Date created</option>
+                        <option value="due_date">Due Date</option>
+                    </select>
+                    </div>
+                    <div>
+                    <label for="filterBy">Filter By:</label>
+                    <select id="filterBy" bind:value={filterBy} on:change={applySortAndFilter}>
+                        <option value="All">All</option>
+                        <option value="To Do">To Do</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                    </div>
                 </div>
                 {#each $todos as todo(todo.id)}
                 <Todo todo={todo}/>

@@ -103,7 +103,7 @@
 
     <button
     type="button"
-    class="text-sm bg-red-300 hover:bg-red-600 text-white py-1 px-2 ml-4 rounded focus:outline-none focus:shadow-outline"
+    class="text-sm bg-red-300 hover:bg-red-600 opacity-50 hover:opacity-100 text-white py-1 px-2 ml-4 rounded focus:outline-none focus:shadow-outline"
     on:click={() => deleteTodo(todo.id)}>X</button>
 
 </li>

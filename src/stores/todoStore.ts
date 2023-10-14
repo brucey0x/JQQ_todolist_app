@@ -4,6 +4,9 @@ import { supabase } from "../supabaseClient"
 export const todos = writable<Todo[]>([])
 
 let currentState: Todo[] = []
+let currentSortBy: string = (key: string) => {
+	currentSortBy = key
+}
 
 todos.subscribe((value) => {
 	currentState = value
@@ -40,7 +43,25 @@ const supabaseUpdater = async (vars: UpdateVars) => {
 
 const sortTodos = (a: Todo, b: Todo) => {
 	if (a.completed !== b.completed) return a.completed ? 1 : -1
+
+	if (currentSortBy === "due_date")
+		return new Date(a.due_date).getTime() - new Date(b.due_date).getTime()
+
 	return b.order - a.order
+}
+
+export const setSortAndFilter = (sortBy: string, filterBy: string) => {
+	currentSortBy = sortBy
+
+	todos.update((currentTodos) => {
+		let filteredTodos = currentTodos
+		if (filterBy !== "All") {
+			filteredTodos = currentTodos.filter(
+				(todo) => todo.completed === (filterBy === "Completed")
+			)
+		}
+		return filteredTodos.sort(sortTodos)
+	})
 }
 
 export const addTodo = async (text: string, due_date: string | null, user_id: string) => {
