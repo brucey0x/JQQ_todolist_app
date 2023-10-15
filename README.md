@@ -36,11 +36,12 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 -   [x] Modularize the update components of `todoStore.ts`
 -   [x] Add completed tasks at the bottom of the list
 -   [x] Add new tasks at the top of the list
--   [ ] Option to sort by date
--   [ ] Filter by `to do, completed, all`
+-   [x] Option to sort by date
+-   [x] Filter by `to do, completed, all`
+-   [x] Improve CSS styling.
+-   [x] Study TailwindCSS basics and how to organize messy classes.
 -   [ ] Pop-out per task with description and comments which can be edited by user.
--   [ ] Improve CSS styling.
--   [ ] Study TailwindCSS basics and how to organize messy classes.
+-   [ ] Pop-out per task with description and comments which can be edited by user.
 
 ## Bugs
 
