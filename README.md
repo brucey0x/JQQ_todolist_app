@@ -40,7 +40,7 @@ Creating my first Svelte application by following James Q Quick's todo list tuto
 -   [x] Filter by `to do, completed, all`
 -   [x] Improve CSS styling.
 -   [x] Study TailwindCSS basics and how to organize messy classes.
--   [ ] Pop-out per task with description and comments which can be edited by user.
+-   [x] Improve pop-out for login
 -   [ ] Pop-out per task with description and comments which can be edited by user.
 
 ## Bugs
