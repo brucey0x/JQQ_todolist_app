@@ -2,6 +2,7 @@ import { writable } from "svelte/store"
 import { supabase } from "../supabaseClient"
 
 export const todos = writable<Todo[]>([])
+export const filteredAndSortedTodos = writable<Todo[]>([])
 
 let currentState: Todo[] = []
 let currentSortBy: string = (key: string) => {
@@ -50,17 +51,22 @@ const sortTodos = (a: Todo, b: Todo) => {
 	return b.order - a.order
 }
 
-export const setSortAndFilter = (sortBy: string, filterBy: string) => {
+export const setSortAndFilter = (sortBy: string, filterBy: string, isAscending: boolean) => {
 	currentSortBy = sortBy
 
-	todos.update((currentTodos) => {
-		let filteredTodos = currentTodos
+	todos.subscribe(($todos) => {
+		let filteredTodos = [...$todos]
+
+		// Handle filtering
 		if (filterBy !== "All") {
-			filteredTodos = currentTodos.filter(
+			filteredTodos = filteredTodos.filter(
 				(todo) => todo.completed === (filterBy === "Completed")
 			)
 		}
-		return filteredTodos.sort(sortTodos)
+
+		// Handle sorting
+		const sortedTodos = filteredTodos.sort(sortTodos)
+		filteredAndSortedTodos.set(isAscending ? sortedTodos : sortedTodos.reverse())
 	})
 }
 
