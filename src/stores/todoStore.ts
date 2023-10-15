@@ -4,13 +4,14 @@ import { supabase } from "../supabaseClient"
 export const todos = writable<Todo[]>([])
 export const filteredAndSortedTodos = writable<Todo[]>([])
 
-let currentState: Todo[] = []
+let currentState: Todo[] = [] // created to track amount of todos in array
 let currentSortBy: string = (key: string) => {
 	currentSortBy = key
 }
 
 todos.subscribe((value) => {
 	currentState = value
+	filteredAndSortedTodos.set(value as Todo[])
 })
 
 export const loadTodos = async () => {
@@ -54,8 +55,8 @@ const sortTodos = (a: Todo, b: Todo) => {
 export const setSortAndFilter = (sortBy: string, filterBy: string, isAscending: boolean) => {
 	currentSortBy = sortBy
 
-	todos.subscribe(($todos) => {
-		let filteredTodos = [...$todos]
+	todos.subscribe((todos) => {
+		let filteredTodos = [...todos]
 
 		// Handle filtering
 		if (filterBy !== "All") {
