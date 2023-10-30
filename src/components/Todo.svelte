@@ -31,12 +31,12 @@
         const target = event.target as HTMLInputElement
         if (target === inputDateElement) {
             updateTodo(todo.id, tempText, tempDate)
-            if (target === inputTextElement) {
-                updateTodo(todo.id, tempText, tempDate)
-                isEditingText = false
-            }
             isEditingDate = false
         }
+        if (target === inputTextElement) {
+            updateTodo(todo.id, tempText, tempDate)
+            isEditingText = false
+            }
     }
     
     function keydownHandler (event: KeyboardEvent) {
@@ -73,6 +73,7 @@
         bind:value={tempText} 
         on:keydown={keydownHandler}
         on:blur={blurHandler}
+        class="rounded py-1"
         />
         {:else}
         <button 

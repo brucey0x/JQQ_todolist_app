@@ -3,7 +3,7 @@
     import { addTodo } from "../stores/todoStore"
     
     let todo: string = ""
-    let dueDate: string | null = null
+    let dueDate: string | null = new Date().toISOString().split("T")[0];
     let today = new Date().toISOString().split("T")[0];
 
     const handleSubmit = () => {
